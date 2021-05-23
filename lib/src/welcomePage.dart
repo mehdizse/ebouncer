@@ -1,24 +1,21 @@
 import 'package:ebouncer/src/accountPage.dart';
 import 'package:flutter/material.dart';
-import '../src/loginPage.dart';
-import '../src/signup.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'loginPage.dart';
 
 class WelcomePage extends StatefulWidget {
-  WelcomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
 
   @override
   _WelcomePageState createState() => _WelcomePageState();
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+
   Widget _submitButton() {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AccountPage()));
+            context, MaterialPageRoute(builder: (context) => LoginPage(accountType: "Manager",)));
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 13,horizontal: 20),
@@ -44,7 +41,7 @@ class _WelcomePageState extends State<WelcomePage> {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AccountPage()));
+            context, MaterialPageRoute(builder: (context) => AccountPage(accountType: "Client",)));
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 13,horizontal: 40),

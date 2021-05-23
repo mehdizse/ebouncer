@@ -4,9 +4,11 @@ import '../src/signup.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AccountPage extends StatefulWidget {
-  AccountPage({Key key, this.title}) : super(key: key);
 
-  final String title;
+  String accountType;
+
+  AccountPage({required this.accountType});
+
 
   @override
   _AccountPageState createState() => _AccountPageState();
@@ -17,7 +19,7 @@ class _AccountPageState extends State<AccountPage> {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+            context, MaterialPageRoute(builder: (context) => LoginPage(accountType: widget.accountType,)));
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -45,7 +47,7 @@ class _AccountPageState extends State<AccountPage> {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignUpPage()));
+            context, MaterialPageRoute(builder: (context) => SignUpPage(accountType: widget.accountType,)));
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

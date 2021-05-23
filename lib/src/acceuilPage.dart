@@ -1,15 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import '../src/Widget/bezierContainer.dart';
-import '../src/loginPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AcceuilPage extends StatefulWidget {
-  AcceuilPage({Key key, this.title,@required this.par}) : super(key: key);
 
-  final String title;
+  AcceuilPage({required this.par});
+
   String par;
 
   @override
@@ -17,7 +13,6 @@ class AcceuilPage extends StatefulWidget {
 }
 
 class _AcceuilPageState extends State<AcceuilPage> {
-
 
   Widget _backButton() {
     return InkWell(
@@ -39,8 +34,6 @@ class _AcceuilPageState extends State<AcceuilPage> {
       ),
     );
   }
-
-
 
   Widget _submitButton(String text) {
     return Container(
@@ -66,7 +59,6 @@ class _AcceuilPageState extends State<AcceuilPage> {
       ),
     );
   }
-
 
   Widget _title() {
     return RichText(
@@ -117,7 +109,7 @@ class _AcceuilPageState extends State<AcceuilPage> {
                     SizedBox(
                       height: 50,
                     ),
-                widget.par=="1"?Container(
+                widget.par=="a1"||widget.par=="n1"||widget.par=="A1"||widget.par=="N1"?Container(
                   width: 150,
                   padding: EdgeInsets.symmetric(vertical: 12),
                   alignment: Alignment.center,
@@ -143,13 +135,39 @@ class _AcceuilPageState extends State<AcceuilPage> {
                         color: Colors.white,
                       ),
                     ),
-                  )):Container(
+                  )):widget.par=="a2"||widget.par=="A2"||widget.par=="N2"||widget.par=="n2"?Container(
                     width: 150,
                     padding: EdgeInsets.symmetric(vertical: 12),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.red,
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            color: Colors.grey.shade200,
+                            offset: Offset(2, 4),
+                            blurRadius: 5,
+                            spreadRadius: 2)
+                      ],
+                    ),
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: 'Rejected',
+                        style: GoogleFonts.portLligatSans(
+                          textStyle: Theme.of(context).textTheme.display1,
+                          fontSize: 26,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )):Container(
+                    width: 150,
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.orange,
                       boxShadow: <BoxShadow>[
                         BoxShadow(
                             color: Colors.grey.shade200,
@@ -176,7 +194,7 @@ class _AcceuilPageState extends State<AcceuilPage> {
                     RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
-                          text: 'AGE : XX',
+                          text: widget.par.contains('a')||widget.par.contains('A')?'AGE : XX':'PREDICTED AGE : XX',
                           style: GoogleFonts.portLligatSans(
                             textStyle: Theme.of(context).textTheme.display1,
                             fontSize: 20,
@@ -191,7 +209,7 @@ class _AcceuilPageState extends State<AcceuilPage> {
                     RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
-                        text: 'GENDER : XX',
+                        text: widget.par.contains('a')||widget.par.contains('A')?'GENDER : XX':'PREDICTED GENDER: XX',
                         style: GoogleFonts.portLligatSans(
                           textStyle: Theme.of(context).textTheme.display1,
                           fontSize: 20,
@@ -201,11 +219,37 @@ class _AcceuilPageState extends State<AcceuilPage> {
                       ),
                     ),
                     SizedBox(height: 30,),
-                    widget.par=="1"?_submitButton("I JUST WANT TO ENTER"):_submitButton("SEE US"),
+                    widget.par=="a2"||widget.par=="A2"||widget.par=="n2"||widget.par=="N2"?RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: 'Sorry !You’re not allowed to enter due to the critaeria  this day, you can come x day',
+                        style: GoogleFonts.portLligatSans(
+                          textStyle: Theme.of(context).textTheme.display1,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ):widget.par=="a3"||widget.par=="A3"||widget.par=="n3"||widget.par=="N3"?RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: 'Sorry !You’re not allowed to enter !the maximum number of people is reached',
+                        style: GoogleFonts.portLligatSans(
+                          textStyle: Theme.of(context).textTheme.display1,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ):Container(),
+                    SizedBox(height: 30,),
+                    widget.par=="n1"||widget.par=="N1"||widget.par=="n2"||widget.par=="N2"?_submitButton('I am not agree with those prediction'):widget.par=="n3"||widget.par=="N3"?_submitButton("Help us to improve our application"):Container(),
                     SizedBox(height: 20,),
-                    widget.par=="1"?_submitButton("Help us to improve our application"):Container(),
+                    widget.par=="a1"||widget.par=="n1"||widget.par=="A1"||widget.par=="N1"?_submitButton("I JUST WANT TO ENTER"):_submitButton("SEE YOU"),
                     SizedBox(height: 20,),
-                    widget.par=="1"?_submitButton("Advice some music"):Container(),
+                    widget.par=="a1"||widget.par=="n1"||widget.par=="A1"||widget.par=="N1"?_submitButton("Help us to improve our application"): Container(),
+                    SizedBox(height: 20,),
+                    widget.par=="a1"||widget.par=="n1"||widget.par=="A1"||widget.par=="N1"?_submitButton("Advice some music"):Container(),
                     SizedBox(height: 20,),
                     SizedBox(height: height * .14),
 

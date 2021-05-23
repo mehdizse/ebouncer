@@ -2,13 +2,15 @@ import 'package:ebouncer/src/acceuilPage.dart';
 import 'package:flutter/material.dart';
 import '../src/signup.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'Widget/bezierContainer.dart';
+import 'managerPage.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key, this.title}) : super(key: key);
 
-  final String title;
+  String accountType;
+
+  LoginPage({required this.accountType});
+
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -39,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _entryField(String title, {bool isPassword = false}) {
+  Widget _entryField(String title) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -67,6 +69,8 @@ class _LoginPageState extends State<LoginPage> {
     return GestureDetector(
       onTap: (){
         String txt=myController.text;
+        widget.accountType=="Manager"?Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ManagerPage())):
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => AcceuilPage(par: txt,)));
       },
@@ -95,45 +99,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _divider() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          Text('or'),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-        ],
-      ),
-    );
-  }
-
 
   Widget _createAccountLabel() {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignUpPage()));
+            context, MaterialPageRoute(builder: (context) => SignUpPage(accountType: widget.accountType,)));
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),
@@ -189,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Client id"),
+        widget.accountType=="Manager"?_entryField("Manager id"):_entryField("Client id"),
       ],
     );
   }
@@ -221,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                   _submitButton(),
 
                   SizedBox(height: height * .055),
-                  _createAccountLabel(),
+                  widget.accountType=="Client"?_createAccountLabel():Container(),
                 ],
               ),
             ),

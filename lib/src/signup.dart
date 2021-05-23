@@ -7,9 +7,12 @@ import '../src/loginPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignUpPage extends StatefulWidget {
-  SignUpPage({Key key, this.title}) : super(key: key);
 
-  final String title;
+
+
+  SignUpPage({required this.accountType});
+
+  final String accountType;
 
   @override
   _SignUpPageState createState() => _SignUpPageState();
@@ -17,7 +20,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
 
-  File _image;
+  late File _image;
   final picker = ImagePicker();
 
   Future getImage() async {
@@ -54,7 +57,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _entryField(String title, {bool isPassword = false}) {
+  Widget _entryField(String title) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -68,7 +71,6 @@ class _SignUpPageState extends State<SignUpPage> {
             height: 10,
           ),
           TextField(
-              obscureText: isPassword,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   fillColor: Color(0xfff3f3f4),
@@ -107,7 +109,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+            context, MaterialPageRoute(builder: (context) => LoginPage(accountType: widget.accountType,)));
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),
